@@ -1,0 +1,161 @@
+"use client"
+import Image from "next/image";
+import {Input} from "@/components/ui/input"
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import axios from "axios"
+interface field_state{
+  isLoading:boolean,
+  value:string
+}
+interface field_state_memonics{
+  isLoading:boolean,
+  value:string,
+  length:number
+}
+
+export default function Home() {
+  const [seed,setSeed]=useState<field_state>({
+    isLoading:false,
+    value:""
+  })
+  const [final_seed,setFinalSeed]=useState<field_state>({
+    isLoading:false,
+    value:""
+  })
+  const [memonics,setMemonics]=useState<field_state_memonics>({
+    isLoading:false,
+    value:"",
+    length:0
+  })
+  const [passphrase,setPassphrase]=useState("")
+
+  async function set256bit_seed(){
+    setSeed({
+      isLoading:false,
+      value:(await axios.get("/random_256")).data.seed
+    })
+  }
+ async function get_memonics_and_set(value:string){
+   const response=await axios.post("/memonics_bip39",{
+    seed:value
+   })
+   const memonics=response.data.memonics
+   const length=response.data.length
+   setMemonics({
+    isLoading:false,
+    length,
+    value:memonics
+   })
+ }
+ async function get_memonic_seed(memonics:string,passphrase:string){
+   const response=await axios.post("/seed_pbkdf2",{memonics,passphrase})
+   console.log(response)
+   setFinalSeed({
+    isLoading:false,
+    value:response.data.seed
+   })
+ }
+ return (
+  <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-orange-500 p-6">
+    <div className="max-w-3xl mx-auto bg-white shadow-xl rounded-2xl p-8 space-y-8">
+      {/* Header */}
+      <div className="flex items-center justify-between border-b pb-4">
+        <h1 className="text-2xl font-bold text-gray-800">Seed Generator</h1>
+        <Button
+          onClick={async () => {
+            set256bit_seed();
+            setSeed({ ...seed, isLoading: true });
+          }}
+          className="rounded-xl px-4 py-2 bg-gradient-to-r from-purple-500 to-orange-500 text-white"
+        >
+          Generate
+        </Button>
+      </div>
+
+      {/* Seed Input */}
+      <div className="space-y-2">
+        <label className="font-semibold text-gray-700">Seed</label>
+        <Input
+          type="text"
+          placeholder="Enter or generate a 256-bit seed"
+          onChange={(e) => setSeed({ ...seed, value: e.target.value })}
+          value={seed.value}
+          className="w-full"
+        />
+        {seed.isLoading && <p className="text-sm text-purple-600">Loading...</p>}
+      </div>
+
+      {/* Mnemonics */}
+      <div className="space-y-2">
+        <div className="flex items-center justify-between">
+          <h2 className="font-semibold text-gray-700">Generate Mnemonics</h2>
+          <Button
+            onClick={() => {
+              get_memonics_and_set(seed.value);
+              setMemonics({ ...memonics, isLoading: true });
+            }}
+            className="rounded-xl px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white"
+          >
+            Generate
+          </Button>
+        </div>
+        <Input
+          type="text"
+          placeholder="Input or generate mnemonic words"
+          value={memonics.value}
+          onChange={(e) => setMemonics({ ...memonics, value: e.target.value })}
+          className="w-full"
+        />
+        {memonics.isLoading && (
+          <p className="text-sm text-orange-500">Generating mnemonics...</p>
+        )}
+      </div>
+
+      {/* Passphrase */}
+      <div className="space-y-2">
+        <label className="font-semibold text-gray-700">Passphrase</label>
+        <Input
+          placeholder="Enter passphrase (optional)"
+          value={passphrase}
+          onChange={(e) => setPassphrase(e.target.value)}
+          className="w-full"
+        />
+      </div>
+
+      {/* Final Seed */}
+      <div className="flex items-center justify-between">
+        <Button
+          onClick={() => {
+            setFinalSeed({
+              ...seed,
+              isLoading: true,
+            });
+            get_memonic_seed(memonics.value, passphrase);
+          }}
+          className="rounded-xl px-4 py-2 bg-gradient-to-r from-orange-500 to-purple-500 text-white"
+        >
+          Generate Final Seed
+        </Button>
+        {!final_seed.isLoading && final_seed.value && (
+          <h3 className="font-mono text-sm bg-gray-100 px-3 py-1 rounded-md">
+            {final_seed.value}
+          </h3>
+        )}
+      </div>
+
+      {/* BIP32 Section */}
+      <div className="pt-6">
+        <h1 className="text-3xl font-extrabold text-gray-800 text-center">
+          BIP32 Seed Generation
+        </h1>
+        <div className="flex justify-between">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+}
+
