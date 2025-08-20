@@ -4,6 +4,7 @@ import {Input} from "@/components/ui/input"
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import axios from "axios"
+import { generateKey } from "crypto";
 interface field_state{
   isLoading:boolean,
   value:string
@@ -29,7 +30,16 @@ export default function Home() {
     length:0
   })
   const [passphrase,setPassphrase]=useState("")
-
+  const [bip32seed,setbip32Seed]=useState<field_state>({
+    isLoading:false,
+    value:""
+  })
+  // state for the child enration of the key value pair or the blockchain crypto
+  const [childkp,setChildkp]=useState({
+    isLoading:false,
+    publicKey:"",
+    privateKey:""
+  })
   async function set256bit_seed(){
     setSeed({
       isLoading:false,
@@ -56,8 +66,26 @@ export default function Home() {
     value:response.data.seed
    })
  }
+
+ async function set_bip32seed(){
+     const response=await axios.post("/bip32seed",{seed:final_seed.value})
+   
+   setbip32Seed({
+    isLoading:false,
+    value:response.data.bip32seed
+   })
+ }
+
+//  we will now be genrating the key value pair for the child derivation path
+async function genKeyValuePair(){
+  const response=axios.post("/bip44seed",{seed:bip32seed.value})
+  setChildkp({
+    ...childkp,
+    isLoading:false
+  })
+}
  return (
-  <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-orange-500 p-6">
+  <div className="overflow-x-hidden bg-gradient-to-br from-purple-500 to-orange-500 p-6">
     <div className="max-w-3xl mx-auto bg-white shadow-xl rounded-2xl p-8 space-y-8">
       {/* Header */}
       <div className="flex items-center justify-between border-b pb-4">
@@ -147,11 +175,27 @@ export default function Home() {
       {/* BIP32 Section */}
       <div className="pt-6">
         <h1 className="text-3xl font-extrabold text-gray-800 text-center">
-          BIP32 Seed Generation
+          BIP32 Seed Generation 
         </h1>
         <div className="flex justify-between">
-          
+          <Button type="button" onClick={()=>{
+            set_bip32seed()
+            setbip32Seed({
+              ...bip32seed,
+              isLoading:true
+            })
+            
+          }}>generate</Button>
+          <h1>{bip32seed.value}</h1>
         </div>
+        {/* now we will be genrating the bip44 child key vlaue pairs */}
+        <Button onClick={()=>{
+          genKeyValuePair()
+          setChildkp({
+            ...childkp,
+            isLoading:true
+          })
+        }}>Generate</Button>
       </div>
     </div>
   </div>
