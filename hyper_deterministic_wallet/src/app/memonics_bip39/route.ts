@@ -22,8 +22,8 @@ let result=entropy_bin+checksum
 const number11bit=toNumber11bit(result)
 // now readng the bip39 all memonics and converting that to indexed array
 const text = fs.readFileSync(
-  "C:/Users/admin/Desktop/devs/hyper_deterministic_wallet/src/app/memonics_bip39/bip39_english.txt",
-  "utf8"
+  "/home/prakhar/Desktop/prakhar/Blockchain_fundamentals/hyper_deterministic_wallet/src/app/memonics_bip39/bip39_english.txt"
+  ,"utf-8"
 );
 
 const words = text.trim().split("\n").map(w => w.trim());

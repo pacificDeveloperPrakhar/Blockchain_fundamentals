@@ -3,8 +3,10 @@ import Image from "next/image";
 import {Input} from "@/components/ui/input"
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import axios from "axios"
+import axios from "axios";
+import Keys from "@/components/ui/childKeys"
 import { generateKey } from "crypto";
+import { derivePath } from "ed25519-hd-key";
 interface field_state{
   isLoading:boolean,
   value:string
@@ -15,11 +17,44 @@ interface field_state_memonics{
   length:number
 }
 
+// this interface will be used to structure the field of the accounts data of a particular
+// coin
+interface field_state_accounts
+{
+  publicKey:string,
+  privateKey:string
+}
+
 export default function Home() {
   const [seed,setSeed]=useState<field_state>({
     isLoading:false,
     value:""
   })
+
+  // for each type of coin there do be a seperate array of accounts
+  const [etherium_keys,set_etherium_keys]=useState<field_state_accounts[]|[]>([]);
+
+//  ===============fetching the keys===================================================================
+  async function fetchKeys(type: number, keysLength: number, seed: string,account_type:number) {
+    try {
+      const account_no = keysLength;
+      // Construct BIP-44 derivation path dynamically
+      const derivePath = `m/44'/${type}'/${account_no}'/${account_type}/0`;
+  
+      const response = await axios.post("/bip44seed", {
+        type,
+        seed,
+        derivePath,
+      });
+  
+      // The backend should return the new key pair
+      return response.data; // { privateKey, publicKey }
+    } catch (err) {
+      console.error("Error fetching keys:", err);
+      return null;
+    }
+  }
+
   const [final_seed,setFinalSeed]=useState<field_state>({
     isLoading:false,
     value:""
@@ -66,6 +101,7 @@ export default function Home() {
     value:response.data.seed
    })
  }
+ 
 
  async function set_bip32seed(){
      const response=await axios.post("/bip32seed",{seed:final_seed.value})
@@ -197,6 +233,12 @@ async function genKeyValuePair(){
           })
         }}>Generate</Button>
       </div>
+
+    {/* ========================================================================================================= */}
+    {/* etherium child keys generation */}
+
+   <Keys keys={etherium_keys} setKeys={set_etherium_keys} fetchKeys={fetchKeys} type={60} account_type={0} seed={final_seed.value} coin_type="Etherium"/>
+   <Keys keys={etherium_keys} setKeys={set_etherium_keys} fetchKeys={fetchKeys} type={501} account_type={0} seed={final_seed.value} coin_type="Solana"/>
     </div>
   </div>
 );

@@ -1,14 +1,27 @@
 import {NextRequest,NextResponse} from "next/server"
 import {derivePath} from "ed25519-hd-key"
+import {HDNodeWallet} from "ethers"
 export async function POST(req:NextRequest,res:NextResponse){
- const response=await req.json()
- const {seed}=response
-const path = "m/44'/501'/1'/0'"
-
-const keypair=new Uint8Array(derivePath(path,seed).key)
-
- console.log(keypair)
- return NextResponse.json({
-    bip44:"aaaaaaaa"
- },{status:200})
+   const {type,seed,derivePath}=await req.json();
+   switch(type)
+   {
+      case 501:
+         break;
+      case 60:
+      console.log(seed)
+      const wallet=HDNodeWallet.fromSeed(Buffer.from(seed, "hex"));
+      console.log(derivePath);
+      const child = wallet.derivePath(derivePath);
+      return NextResponse.json({
+         privateKey:child.privateKey,
+         publicKey:child.publicKey
+      },
+      {
+         status:200
+      }
+   )
+         break;
+      case "bitcoin":
+         break;
+   }
 }
