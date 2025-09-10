@@ -1,0 +1,9 @@
+{
+    "success":"2vypjcTeN7RiqNb7dSgrJH4FxuSS4sER7UWBmmsdALEyA3mCujuuL8orGZR8dY61YBurrKpfwFeqE1U4UZwVhazv",
+    "failure":{
+        "signature": "",
+        "transactionMessage": "Transaction simulation failed: Attempt to debit an account but found no record of a prior credit.",
+        "transactionLogs": []
+      },
+    "message":"i forgot to properly correct the order of th signer first must be the one who is creating it and the second do be the one be the account"
+}

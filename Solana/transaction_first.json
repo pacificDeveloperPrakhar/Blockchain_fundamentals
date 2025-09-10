@@ -1,0 +1,12 @@
+{"failure":{
+    "signature": "",
+    "transactionMessage": "Transaction simulation failed: Error processing Instruction 0: custom program error: 0x1",
+    "transactionLogs": [
+      "Program 11111111111111111111111111111111 invoke [1]",
+      "Transfer: insufficient lamports 999990000, need 2000000000",
+      "Program 11111111111111111111111111111111 failed: custom program error: 0x1"
+    ]
+  },
+"success":"32uP3rsfWAuSkLMHpZmmhMATPqRtS3DzquNFCZzdnoDKEdPCwugYpmCkvsrYiNJk3oh4yp5kgcDrmc9eB978Pke1"
+}
+
