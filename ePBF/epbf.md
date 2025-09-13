@@ -22,7 +22,7 @@ which will then be compiled to ePBF using the LLVM
 ### Program control flow
 
 -   **Guaranteed termination:**  All program execution paths must have a guaranteed exit. Infinite loops are not allowed. The verifier can only approve loops if it can prove they will terminate, typically by checking a bounded loop counter.
--   **Limited complexity:**  The verifier has an internal complexity limit, meaning your program cannot be arbitrarily large or have an excessive number of potential execution paths. Large programs are often split into smaller programs that call each other via "tail calls".
+-   **Limited complexity:**  The verifier has an internal complexity limit, meaning your program cannot be arbitrarily large or have an excessive number of potential execution paths. Large programs are often split into smaller programs that call each other via "tail calls".(MEANING:there are lot of if else and calls,no accessing out of bound memory)
 -   **No recursion:**  Recursive function calls are strictly forbidden to prevent infinite execution.
 
 ### Memory and pointers
