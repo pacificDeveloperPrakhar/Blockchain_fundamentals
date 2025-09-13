@@ -1,0 +1,9 @@
+[package]
+name = "Solana"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anchor = "0.1.3"
+solana-sdk = "3.0.0"
+tokio = "1.47.1"

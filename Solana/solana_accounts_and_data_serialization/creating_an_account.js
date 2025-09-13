@@ -10,6 +10,7 @@ console.log(fs.readFileSync("../sender_id.json"))
 const senderKeypair=Keypair.fromSecretKey(Uint8Array.from(JSON.parse(fs.readFileSync("../sender_id.json"))));
 // now generate the keypair for the new account
 const accountKeypair=Keypair.generate();
+console.log(accountKeypair);
 // now create the instruction to create the new account
 
 async function main()

@@ -1,0 +1,8 @@
+[package]
+name = "solana_rust"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "1.0.99"
+solana-sdk = "3.0.0"
