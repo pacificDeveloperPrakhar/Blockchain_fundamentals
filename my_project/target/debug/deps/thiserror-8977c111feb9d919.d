@@ -1,0 +1,11 @@
+/home/prakhar/Desktop/prakhar/Blockchain_fundamentals/my_project/target/debug/deps/thiserror-8977c111feb9d919.d: /home/prakhar/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.16/src/lib.rs /home/prakhar/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.16/src/aserror.rs /home/prakhar/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.16/src/display.rs /home/prakhar/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.16/src/provide.rs /home/prakhar/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.16/src/var.rs
+
+/home/prakhar/Desktop/prakhar/Blockchain_fundamentals/my_project/target/debug/deps/libthiserror-8977c111feb9d919.rlib: /home/prakhar/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.16/src/lib.rs /home/prakhar/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.16/src/aserror.rs /home/prakhar/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.16/src/display.rs /home/prakhar/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.16/src/provide.rs /home/prakhar/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.16/src/var.rs
+
+/home/prakhar/Desktop/prakhar/Blockchain_fundamentals/my_project/target/debug/deps/libthiserror-8977c111feb9d919.rmeta: /home/prakhar/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.16/src/lib.rs /home/prakhar/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.16/src/aserror.rs /home/prakhar/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.16/src/display.rs /home/prakhar/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.16/src/provide.rs /home/prakhar/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.16/src/var.rs
+
+/home/prakhar/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.16/src/lib.rs:
+/home/prakhar/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.16/src/aserror.rs:
+/home/prakhar/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.16/src/display.rs:
+/home/prakhar/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.16/src/provide.rs:
+/home/prakhar/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.16/src/var.rs:

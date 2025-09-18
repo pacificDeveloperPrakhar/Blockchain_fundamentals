@@ -1,0 +1,1 @@
+/home/prakhar/Desktop/prakhar/Blockchain_fundamentals/my_project/target/sbpf-solana-solana/release/libmy_project.rlib: /home/prakhar/Desktop/prakhar/Blockchain_fundamentals/my_project/programs/my_project/src/lib.rs
